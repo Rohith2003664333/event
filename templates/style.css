@@ -1,0 +1,63 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Full Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    grid-template-rows: repeat(2, 150px);
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+}
+
+/* Common Styles for Buttons */
+.event-btn {
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px 40px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    height: 100%;
+}
+
+/* Different Background Colors for Each Button */
+#security {
+    background-color: #4CAF50; /* Green */
+}
+
+#catering {
+    background-color: #FF5722; /* Orange */
+}
+
+#photographers {
+    background-color: #2196F3; /* Blue */
+}
+
+#decorators {
+    background-color: #9C27B0; /* Purple */
+}
+
+/* Hover Effects for Buttons */
+.event-btn:hover {
+    opacity: 0.9;
+}

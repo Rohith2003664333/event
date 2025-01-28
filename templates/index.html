@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Container Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            margin: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Button Styling */
+        .event-btn {
+            display: block;
+            width: 300px;
+            height: 200px;
+            position: relative;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+        }
+
+        /* Button Background Images */
+        #security {
+            background-image: url('https://images.pexels.com/photos/13047440/pexels-photo-13047440.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #catering {
+            background-image: url('https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #photographers {
+            background-image: url('https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #decorators {
+            background-image: url('https://images.pexels.com/photos/30414367/pexels-photo-30414367.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Button Hover Effects */
+        .event-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            opacity: 0.8;
+        }
+
+        /* Button Text Styling */
+        .event-btn::after {
+            content: attr(id);
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .event-btn {
+                width: 90%;
+                height: 180px;
+            }
+        }
+
+        /* Side Navigation */
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            background-color: #575757;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        /* Open Button */
+        .open-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+        }
+
+        .open-btn:hover {
+            background-color: #444;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #111;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            background: #444;
+        }
+
+        /* Dark Mode Styling */
+        body.dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+
+        .dark-mode-btn {
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            position: fixed;
+            top: 80px;
+            left: 15px;
+            z-index: 1001;
+        }
+
+        .dark-mode-btn:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="open-btn" onclick="openNav()">☰ Menu</button>
+    <!-- <button class="dark-mode-btn" onclick="toggleDarkMode()">🌓 Toggle Theme</button> -->
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="about.html">About Us</a>
+        <a href="business.html">My Business</a>
+        <a href="join_team.html">Join Team</a>
+    </div>
+
+    <div class="container">
+        <a href="security.html" class="event-btn" id="security">Security</a>
+        <a href="catering.html" class="event-btn" id="catering">Catering</a>
+        <a href="photographers.html" class="event-btn" id="photographers">Photographers</a>
+        <a href="decorators.html" class="event-btn" id="decorators">Flower Decorators</a>
+    </div>
+
+    <div class="fab" onclick="alert('Contact Us at 123-456-7890!');">
+        📞
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>
